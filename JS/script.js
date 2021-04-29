@@ -23,16 +23,37 @@ window.onload=function () {
 	 //le point d'intial x et y 
 	 var deplX=0;
 	 var deplY=0;
-	 //body de serpent
+	var nombreBlockParWidth=canvasWidth/taileSerpent;
+	var nombreBlockParHeight=canvasHeight/taileSerpent;
+	 //body de serpent un example
 	 var tailleBody=5;
 	 var bodySerp=[];
+	 //propriter Pomme
+	 var colorPome='red';
+	 var xPome=Math.trunc(Math.random()*nombreBlockParWidth)*taileSerpent;
+	 var yPomme=Math.trunc(Math.random()*nombreBlockParHeight)*taileSerpent;
+	var rayonPome=taileSerpent/2;	
 	 //creation pour deplacer le serpant l'infinter
 	 var intervalId=setInterval(game,1000);
 	 //fonction qui lance le jeu 
 	 	function game()
 	 	{
 	 		desinerSerp();
+	 		dessinePome();
 
+	 	}
+
+
+	 	/*fonction qui dessine la pomme */
+	 	function dessinePome(){
+	 		ctx.beginPath();
+	 		ctx.arc(xPome+rayonPome,yPomme+rayonPome,rayonPome,0,2*Math.PI);
+	 		ctx.fillStyle=colorPome;
+	 		ctx.fill();
+	 		ctx.font="15px Arial";
+	 		ctx.fillStyle="green";
+	 		ctx.fillRect("V",xPome+3,yPomme+3);
+	 		ctx.closePath();
 	 	}
 	 /*fonction qui gére la position de serpent*/
 	 function gestionPositionSerpent(){
@@ -47,13 +68,15 @@ window.onload=function () {
 	 /*fonction qui dessine le serpent */
 	 function desinerSerp(){
 	 	ctx.clearRect(0,0,canvasWidth,canvasHeight);
+	 	ctx.fillStyle=colorSerpent;
 	 	gestionPositionSerpent()
 	 	//boucle pour préciser la taile de serpent
-	 		for (var i =0; i<bodySerp.length; i++) {
-	 			ctx.fillRect(bodySerp[i].x,bodySerp[i].y, taileSerpent-1,taileSerpent-1);
+	 	for (var i =0; i<bodySerp.length; i++) {
+	 	ctx.fillRect(bodySerp[i].x,bodySerp[i].y, taileSerpent-1,taileSerpent-1);
+	 		
 	 		}
 	 	
-	 	ctx.fillStyle=colorSerpent;
+	 	
 	 
 	 }
 	 function interaction(event)
